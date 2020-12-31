@@ -35,19 +35,20 @@ class App extends Component {
   }
 
   render() {
-    
+    console.log(this.state.siteMaps);
     return (
+      
       <Fragment>
-      {this.state.siteMaps.map(item => (
+      {this.state.siteMaps.map((item, itemIndex) => (
         <ul key={item.id}>
-          {item.selectors.map(selector => (
+          {item.selectors.map((selector, selectorIndex) => (
             <li key = {selector.id}>
             <Selector 
-              onAdd={()=>this.AddSelector(item.id, selector.id)} 
-              onDelete={() => this.DeleteSelector(item.id, selector.id)} 
-              onInputChange = {(input) => this.HandleChange(input.target.value, item.id, selector.id)}
-              index={selector.id}
-              children={this.state.siteMaps[item.id].selectors.length}
+              onAdd={()=>this.AddSelector(itemIndex, selectorIndex)} 
+              onDelete={() => this.DeleteSelector(itemIndex, selectorIndex)} 
+              onInputChange = {(input) => this.HandleChange(input.target.value, itemIndex, selectorIndex)}
+              index={selectorIndex}
+              children={this.state.siteMaps[itemIndex].selectors.length}
               inputValue={selector.value}
               />
             </li>

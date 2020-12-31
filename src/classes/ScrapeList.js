@@ -1,5 +1,7 @@
+import { nanoid } from "nanoid";
+
 class Selector {
-  constructor(id=0, level=0) {
+  constructor(id = nanoid(), level=0) {
     this.id = id;
     this.level = level;
     this.value= "";
@@ -9,7 +11,7 @@ class Selector {
 }
 
 class SiteMap {
-  constructor(id=0, name="") {  
+  constructor(id= nanoid(), name="") {  
     this.id= id;
     this.url= "";
     this.name = name;

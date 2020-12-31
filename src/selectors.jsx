@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 const Selector = props =>  {
   
   const {onDelete, onAdd, onInputChange, index, inputValue, children} = props;
+  
   return (
     <Fragment>
         <label>Selector {index +1 }: </label>

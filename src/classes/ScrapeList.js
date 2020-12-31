@@ -49,6 +49,12 @@ class SiteMap {
     this.selectors[index] = updatedSelector;
   }
 
+  updateSitemap(input, property) {
+    let updatedSiteMap = this;
+    updatedSiteMap[property] = input;
+    this.SiteMap = updatedSiteMap;
+  }
+
   //Add a child selector at a specified index
   addChildSelector(index) {
     let selectors = this.selectors[index];

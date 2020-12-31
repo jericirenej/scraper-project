@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import Selector from './selectors';
+import UrlInput from './urlInput';
 import SiteMap from './classes/ScrapeList';
 
 
 class App extends Component {
   state = {
       siteMaps: [
+        new SiteMap(),
         new SiteMap()
       ]
   }
@@ -23,10 +25,15 @@ class App extends Component {
     let newState = this.state.siteMaps;
     newState[position].deleteSelector(element);
     this.setState({ siteMaps: newState });
-
   }
 
-  HandleChange = (input, position, element) =>  {
+  HandleUrlChange(input, position, identifier) {
+    let newState = this.state.siteMaps;
+    newState[position].updateSitemap(input, identifier);
+    this.setState({ siteMaps: newState });
+  }
+
+  HandleSelectorChange = (input, position, element) =>  {
     //console.log(`Selector ${element+1} input: ${input.target.value}`);
     let newState = this.state.siteMaps;
     newState[position].updateSelectorValue(element, input);
@@ -36,24 +43,31 @@ class App extends Component {
 
   render() {
     console.log(this.state.siteMaps);
+    const siteMaps = this.state.siteMaps;
     return (
-      
       <Fragment>
-      {this.state.siteMaps.map((item, itemIndex) => (
-        <ul key={item.id}>
+      {siteMaps.map((item, itemIndex) => (
+        <section key={item.id}>
+          <UrlInput 
+            urlValue = {siteMaps[itemIndex].url} nameValue = {siteMaps[itemIndex].name}
+            urlProp = "url" nameProp = "name"
+            onInputChange = {(input, identifier) => this.HandleUrlChange(input.target.value, itemIndex, identifier)}
+          />
+          <ul key= { item.id }>
           {item.selectors.map((selector, selectorIndex) => (
             <li key = {selector.id}>
             <Selector 
               onAdd={()=>this.AddSelector(itemIndex, selectorIndex)} 
               onDelete={() => this.DeleteSelector(itemIndex, selectorIndex)} 
-              onInputChange = {(input) => this.HandleChange(input.target.value, itemIndex, selectorIndex)}
+              onInputChange = {(input) => this.HandleSelectorChange(input.target.value, itemIndex, selectorIndex)}
               index={selectorIndex}
-              children={this.state.siteMaps[itemIndex].selectors.length}
+              children={siteMaps[itemIndex].selectors.length}
               inputValue={selector.value}
               />
             </li>
-          ))}
-        </ul>))}
+            ))}
+          </ul>
+        </section>))}
       </Fragment>
       
       )

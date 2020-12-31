@@ -1,16 +1,24 @@
 import React from 'react';
 
 const UrlInput = props => {
-  const { url, inputValue, onInputChange } = props
+  const { urlValue, nameValue, onInputChange, urlProp, nameProp } = props
   return (
-    <ul className="url-input">
-      <li><label>Enter URL</label>
+    <div>
+      <label>List name: </label>
+        <input 
+          type="text"
+          placeholder= "Enter a name"
+          value = {nameValue}
+          onChange= {(input) => onInputChange(input, nameProp)}
+        />
+      <label>URL: </label>
       <input 
         type="text"
-        placeholder="Enter URL"
-        />
-      </li>
-    </ul>
+        placeholder="Enter URL address"
+        value = {urlValue}
+        onChange = {(input) => onInputChange(input, urlProp)}
+      />
+    </div>
    );
 }
  

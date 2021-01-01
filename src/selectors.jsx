@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react';
-
+import { BsArrowReturnRight, BsPlusCircle, BsXSquare } from "react-icons/bs";
 
 const Selector = props =>  {
-  
-  const {onDelete, onAdd, onInputChange, index, inputValue, children} = props;
+const {onDelete, onAdd, onAddChild, onInputChange, index, inputValue, children} = props;
   
   return (
     <Fragment>
@@ -15,9 +14,19 @@ const Selector = props =>  {
           onChange={(input) => onInputChange(input, "selector")}
           id={index + 1}>
           </input>
-        <button type="button" style ={ {cursor: "pointer"} } onClick={onAdd}>+</button>
+        <BsPlusCircle
+          className="addSelectorButton button" 
+          data-title="Add a new selector for this list."
+          onClick={onAdd} />
+        <BsArrowReturnRight
+          className="addChildButton button" 
+          onClick={onAddChild}/>
         {/*Add Delete button only if the number of line items is greater than one.*/}
-        {(children > 1) ? (<button type="button" style ={ {cursor: "pointer"} } onClick = {onDelete}>X</button>):null}
+        {(children > 1) ? (<BsXSquare
+          className="deleteSelectorButton button" 
+          title="Delete the selector"
+          onClick = {onDelete}/>)
+          :null}
     </Fragment>
     )
   }

@@ -22,14 +22,17 @@ class SiteMap {
   //or the array only has 1 element; or parameter is omitted, THEN use push(); 
   //ELSE insert selector AFTER the specified index.
   addSelector(index) {
+    console.log(`Index value passed: ${index}`)
     let selectors = this.selectors;
-    if (!index || index >= selectors.length - 1 || selectors.length === 0) {
-          selectors.push(new Selector(selectors.length));
+    if (index >= selectors.length - 1 || selectors.length === 0) {
+        console.log("Pushing new selector ...")
+        selectors.push(new Selector());
     } else {
+      console.log("Inserting new selector ...");
       let newSelectors = [
         ...selectors.slice(0, index + 1),
-        new Selector(index + 1),
-        ...selectors.slice(index + 1).map(item => ({...item, id: item.id + 1 }))
+        new Selector(),
+        ...selectors.slice(index + 1)
       ];
       this.selectors = newSelectors;
     }
@@ -37,16 +40,16 @@ class SiteMap {
 
   deleteSelector(index) {
     let reducedSelectors = this.selectors.filter(item => item.id !== index)
-    reducedSelectors = reducedSelectors.map(item => (
+  /*  reducedSelectors = reducedSelectors.map(item => (
       {...item, id: reducedSelectors.indexOf(item)}
-    ));
+    ));*/
     this.selectors = reducedSelectors;
   }
 
-  updateSelectorValue(index, input) {
-    let updatedSelector = this.selectors[index];
-    updatedSelector.value = input;
-    this.selectors[index] = updatedSelector;
+  updateSelectorValue(id, input) {
+    let updatedSelector = this.selectors;
+    updatedSelector.find(item => item.id === id).value = input;
+    this.selectors = updatedSelector;
   }
 
   updateSitemap(input, property) {

@@ -2,26 +2,29 @@ import React, { Component, Fragment } from 'react';
 import Selector from './selectors';
 import UrlInput from './urlInput';
 import SiteMap from './classes/ScrapeList';
+import { BiListPlus } from "react-icons/bi";
+import "./style.css";
 
 
 class App extends Component {
   state = {
       siteMaps: [
-        new SiteMap(),
         new SiteMap()
       ]
   }
   
 
-  AddSelector = (position, element) => {
-    console.log(`Adding new selector AFTER Selector No. ${element+1}...`);
+  AddSelector = (position, index) => {
     let newState = this.state.siteMaps;
-    newState[position].addSelector(element);
+    newState[position].addSelector(index);
     this.setState({ siteMaps: newState });
   }
 
+  AddChild = (position, element) => {
+    console.log(`Adding a child selector at list ${position}, selector No. ${element + 1}`);
+  }
+
   DeleteSelector = (position, element) => {
-    console.log(`Deleting selector No. ${element +1 }...`);
     let newState = this.state.siteMaps;
     newState[position].deleteSelector(element);
     this.setState({ siteMaps: newState });
@@ -34,15 +37,29 @@ class App extends Component {
   }
 
   HandleSelectorChange = (input, position, element) =>  {
-    //console.log(`Selector ${element+1} input: ${input.target.value}`);
     let newState = this.state.siteMaps;
     newState[position].updateSelectorValue(element, input);
     this.setState({ siteMaps: newState});
     
   }
 
+  AddSiteMap = (position) => {
+    let newState = this.state.siteMaps
+    if (position) {
+      newState = newState.slice(0,position+1).concat(new SiteMap()).concat(newState.slice(position+1));
+    } else {
+      newState = newState.concat(new SiteMap());
+    }
+    this.setState( { siteMaps: newState });
+  }
+
+  DeleteSiteMap = (id) => {
+    let newState = this.state.siteMaps;
+    newState = newState.filter(item => item.id !== id);
+    this.setState({ siteMaps: newState });
+  }
+
   render() {
-    console.log(this.state.siteMaps);
     const siteMaps = this.state.siteMaps;
     return (
       <Fragment>
@@ -52,14 +69,17 @@ class App extends Component {
             urlValue = {siteMaps[itemIndex].url} nameValue = {siteMaps[itemIndex].name}
             urlProp = "url" nameProp = "name"
             onInputChange = {(input, identifier) => this.HandleUrlChange(input.target.value, itemIndex, identifier)}
+            onSiteDelete={() => this.DeleteSiteMap(item.id)}
+            siteMaps = {siteMaps.length}
           />
           <ul key= { item.id }>
           {item.selectors.map((selector, selectorIndex) => (
             <li key = {selector.id}>
             <Selector 
               onAdd={()=>this.AddSelector(itemIndex, selectorIndex)} 
-              onDelete={() => this.DeleteSelector(itemIndex, selectorIndex)} 
-              onInputChange = {(input) => this.HandleSelectorChange(input.target.value, itemIndex, selectorIndex)}
+              onAddChild={() => this.AddChild(itemIndex, selectorIndex)}
+              onDelete={() => this.DeleteSelector(itemIndex, selector.id)} 
+              onInputChange = {(input) => this.HandleSelectorChange(input.target.value, itemIndex, selector.id)}
               index={selectorIndex}
               children={siteMaps[itemIndex].selectors.length}
               inputValue={selector.value}
@@ -67,7 +87,12 @@ class App extends Component {
             </li>
             ))}
           </ul>
-        </section>))}
+        </section>))
+        }
+        <BiListPlus 
+          className="addNewList button"
+          title="Add another scraping list"
+          onClick = {() => this.AddSiteMap()} />
       </Fragment>
       
       )

@@ -95,7 +95,8 @@ input:focus, input:hover {
   grid-column: 3 / 7
 }
 .selector-list.controls {
-  grid-column: 7/10;
+  grid-column: 7 / 10;
+  grid-row: 1 / 2;
 }
 .selector-list.input {
   display: block;
@@ -106,11 +107,16 @@ input:focus, input:hover {
   padding-top: 5px;
 }
 
-ul {
-  list-style:none;
+ul:nth-child(1) {
   padding: 0;
   margin-left:0;
   margin-right:0;
+
+}
+ul {
+  list-style:none;
+  padding-top:0;
+  
 }
 
 li {

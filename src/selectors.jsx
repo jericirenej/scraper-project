@@ -24,7 +24,7 @@ const {onDelete, onAdd, onAddChild, onInputChange, index, inputValue, children, 
           onClick={onAddChild}/>
         <BsPlusCircle
           className="addSelectorButton button" 
-          data-title="Add a new selector for this list."
+          title="Add a new selector for this list."
           onClick={onAdd} />
         {/*Add Delete button only if the number of line items is greater than one.*/}
         {(children > 1) ? (<BsXSquare

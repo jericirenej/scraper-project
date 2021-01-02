@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Selector from './selectors';
 import UrlInput from './urlInput';
-import SiteMap from './classes/ScrapeList';
+import SiteMap from './classes/ScrapeList.js';
 import { BiListPlus } from "react-icons/bi";
 import "./style.css";
 
@@ -12,16 +12,19 @@ class App extends Component {
         new SiteMap()
       ]
   }
-  
 
-  AddSelector = (position, index) => {
+  AddSelector = (id, position, index) => {
     let newState = this.state.siteMaps;
-    newState[position].addSelector(index);
+    newState[position].addSelector(id, index);
     this.setState({ siteMaps: newState });
   }
 
-  AddChild = (position, element) => {
-    console.log(`Adding a child selector at list ${position}, selector No. ${element + 1}`);
+  AddChild = (position, id) => {
+    let newState = this.state.siteMaps;
+    newState[position].addChildSelector(id);
+    this.setState({ siteMaps: newState});
+    console.log(this.state.siteMaps[position].selectors);
+
   }
 
   DeleteSelector = (position, element) => {
@@ -43,17 +46,17 @@ class App extends Component {
     
   }
 
-  AddSiteMap = (position) => {
+  AddSiteMap = position => {
     let newState = this.state.siteMaps
     if (position) {
       newState = newState.slice(0,position+1).concat(new SiteMap()).concat(newState.slice(position+1));
     } else {
       newState = newState.concat(new SiteMap());
-    }
+    };
     this.setState( { siteMaps: newState });
   }
 
-  DeleteSiteMap = (id) => {
+  DeleteSiteMap = id => {
     let newState = this.state.siteMaps;
     newState = newState.filter(item => item.id !== id);
     this.setState({ siteMaps: newState });
@@ -73,11 +76,13 @@ class App extends Component {
             siteMaps = {siteMaps.length}
           />
           <ul key= { item.id }>
+
+            
           {item.selectors.map((selector, selectorIndex) => (
             <li key = {selector.id}>
             <Selector 
-              onAdd={()=>this.AddSelector(itemIndex, selectorIndex)} 
-              onAddChild={() => this.AddChild(itemIndex, selectorIndex)}
+              onAdd={()=>this.AddSelector(item.id, itemIndex, selectorIndex)} 
+              onAddChild={() => this.AddChild(itemIndex, selector.id)}
               onDelete={() => this.DeleteSelector(itemIndex, selector.id)} 
               onInputChange = {(input) => this.HandleSelectorChange(input.target.value, itemIndex, selector.id)}
               index={selectorIndex}

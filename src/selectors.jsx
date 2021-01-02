@@ -2,14 +2,14 @@ import React from 'react';
 import { BsArrowReturnRight, BsPlusCircle, BsXSquare } from "react-icons/bs";
 
 const Selector = props =>  {
-const {onDelete, onAdd, onAddChild, onInputChange, index, inputValue, children} = props;
+const {onDelete, onAdd, onAddChild, onInputChange, index, inputValue, children, visible} = props;
   
   return (
-    <div className="selector-list wrapper">
-      <div className="selector-list-label">
+    <div className={`selector-list wrapper ${ visible }`}>
+      <div className="selector-list label">
         <label>Selector {index +1 }: </label>
       </div>
-      <div className="selector-list-input">
+      <div className="selector-list input">
         <input 
           type="text"
           value={inputValue}
@@ -18,7 +18,7 @@ const {onDelete, onAdd, onAddChild, onInputChange, index, inputValue, children} 
           id={index + 1}>
           </input>
       </div>
-      <div className="selector-list-control-buttons">
+      <div className="selector-list controls">
         <BsArrowReturnRight
           className="addChildButton button" 
           onClick={onAddChild}/>

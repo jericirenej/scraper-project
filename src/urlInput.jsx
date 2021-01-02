@@ -5,20 +5,20 @@ const UrlInput = props => {
   const { urlValue, nameValue, onInputChange, onSiteDelete, urlProp, nameProp, siteMaps } = props
   return (
     <div className="list wrapper">
-      <div className="list-name-label">
+      <div className="list-name label">
         <label>List name: </label>
       </div>
-      <div className="list-name-input">
+      <div className="list-name input">
           <input 
             type="text"
             placeholder= "Enter a name"
             value = {nameValue}
             onChange= {(input) => onInputChange(input, nameProp)}/>
       </div>
-      <div className ="list-URL-label">
+      <div className ="list-URL label">
         <label>URL: </label>
       </div>
-      <div className="list-URL-input">
+      <div className="list-URL input">
         <input 
           type="text"
           placeholder="Enter URL address"
@@ -26,7 +26,7 @@ const UrlInput = props => {
           onChange = {(input) => onInputChange(input, urlProp)}/>
       </div>
       {/*Add Delete button only if the number of siteMaps is greater than one.*/}
-      <div className="list-delete-button">
+      <div className="list-delete">
        {(siteMaps > 1) ? (<BiTrash 
           className="deleteList button" 
           onClick= {() => onSiteDelete()}/>)

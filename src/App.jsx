@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Selector from './selectors';
 import UrlInput from './urlInput';
 import SiteMap from './classes/ScrapeList';
@@ -62,7 +62,7 @@ class App extends Component {
   render() {
     const siteMaps = this.state.siteMaps;
     return (
-      <Fragment>
+      <div className="list-container">
       {siteMaps.map((item, itemIndex) => (
         <section key={item.id}>
           <UrlInput 
@@ -82,6 +82,7 @@ class App extends Component {
               onInputChange = {(input) => this.HandleSelectorChange(input.target.value, itemIndex, selector.id)}
               index={selectorIndex}
               children={siteMaps[itemIndex].selectors.length}
+              visible={siteMaps[itemIndex].selectors[selectorIndex].visible}
               inputValue={selector.value}
               />
             </li>
@@ -93,10 +94,8 @@ class App extends Component {
           className="addNewList button"
           title="Add another scraping list"
           onClick = {() => this.AddSiteMap()} />
-      </Fragment>
-      
-      )
-  }
+      </div>
+    )}
 }
  
 export default App;

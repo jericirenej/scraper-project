@@ -7,6 +7,7 @@ class Selector {
     this.value= "";
     this.multiple= "";
     this.type = "";
+    this.visible="visible"
   }
 }
 
@@ -22,13 +23,10 @@ class SiteMap {
   //or the array only has 1 element; or parameter is omitted, THEN use push(); 
   //ELSE insert selector AFTER the specified index.
   addSelector(index) {
-    console.log(`Index value passed: ${index}`)
     let selectors = this.selectors;
     if (index >= selectors.length - 1 || selectors.length === 0) {
-        console.log("Pushing new selector ...")
         selectors.push(new Selector());
     } else {
-      console.log("Inserting new selector ...");
       let newSelectors = [
         ...selectors.slice(0, index + 1),
         new Selector(),
@@ -38,11 +36,8 @@ class SiteMap {
     }
   }
 
-  deleteSelector(index) {
-    let reducedSelectors = this.selectors.filter(item => item.id !== index)
-  /*  reducedSelectors = reducedSelectors.map(item => (
-      {...item, id: reducedSelectors.indexOf(item)}
-    ));*/
+  deleteSelector(id) {
+    let reducedSelectors = this.selectors.filter(item => item.id !== id)
     this.selectors = reducedSelectors;
   }
 

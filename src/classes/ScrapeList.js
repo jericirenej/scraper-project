@@ -75,7 +75,10 @@ class SiteMap {
 
   updateSelectorValue(id, input) {
     let updatedSelector = this.selectors;
-    updatedSelector.find(item => item.id === id).value = input;
+    function ModifySelector(result) {
+      result.value = input;
+    }
+    this.checkChildren(updatedSelector, id, ModifySelector)
     this.selectors = updatedSelector;
   }
 

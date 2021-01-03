@@ -2,7 +2,7 @@ import React from 'react';
 import { BsArrowReturnRight, BsPlusCircle, BsXSquare } from "react-icons/bs";
 
 const Selector = props =>  {
-const {onDelete, onAdd, onAddChild, onInputChange, index, inputValue, children, visible} = props;
+const {onDelete, onAdd, onAddChild, onInputChange, index, inputValue, siblings, visible} = props;
   
   return (
     <div className={`selector-list wrapper ${ visible }`}>
@@ -27,7 +27,7 @@ const {onDelete, onAdd, onAddChild, onInputChange, index, inputValue, children, 
           title="Add a new selector for this list."
           onClick={onAdd} />
         {/*Add Delete button only if the number of line items is greater than one.*/}
-        {(children > 1) ? (<BsXSquare
+        {(siblings > 1) ? (<BsXSquare
           className="deleteSelectorButton button" 
           title="Delete the selector"
           onClick = {onDelete}/>)

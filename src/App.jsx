@@ -19,9 +19,9 @@ class App extends Component {
     this.setState({ siteMaps: newState });
   }
 
-  AddChild = (position, id) => {
+  AddChild = (id, position) => {
     let newState = this.state.siteMaps;
-    newState[position].addChildSelector(id);
+    newState[position].addSelector(id);
     this.setState({ siteMaps: newState});
     console.log(this.state.siteMaps[position].selectors);
 
@@ -69,25 +69,23 @@ class App extends Component {
       {siteMaps.map((item, itemIndex) => (
         <section key={item.id}>
           <UrlInput 
-            urlValue = {siteMaps[itemIndex].url} nameValue = {siteMaps[itemIndex].name}
+            urlValue = {item.url} nameValue = {item.name}
             urlProp = "url" nameProp = "name"
             onInputChange = {(input, identifier) => this.HandleUrlChange(input.target.value, itemIndex, identifier)}
             onSiteDelete={() => this.DeleteSiteMap(item.id)}
             siteMaps = {siteMaps.length}
           />
-          <ul key= { item.id }>
-
-            
+          <ul key= { item.id }>           
           {item.selectors.map((selector, selectorIndex) => (
             <li key = {selector.id}>
             <Selector 
               onAdd={()=>this.AddSelector(item.id, itemIndex, selectorIndex)} 
-              onAddChild={() => this.AddChild(itemIndex, selector.id)}
+              onAddChild={() => this.AddChild(selector.id, itemIndex)}
               onDelete={() => this.DeleteSelector(itemIndex, selector.id)} 
               onInputChange = {(input) => this.HandleSelectorChange(input.target.value, itemIndex, selector.id)}
               index={selectorIndex}
-              children={siteMaps[itemIndex].selectors.length}
-              visible={siteMaps[itemIndex].selectors[selectorIndex].visible}
+              siblings={item.selectors.length}
+              children = {selector.selectors.length}
               inputValue={selector.value}
               />
             </li>

@@ -5,8 +5,9 @@ export class Selector {
     this.id = id;
     this.value= "";
     this.multiple= "";
+    this.componentClass = "selector"
     this.type = "";
-    this.visible="visible"
+    this.scrapeResult=[];
     this.selectors = [];
   }
 }
@@ -15,6 +16,7 @@ class SiteMap {
   constructor(id= nanoid(), name="") {  
     this.id= id;
     this.url= "";
+    this.componentClass="sitemap";
     this.name = name;
     this.selectors= [new Selector()];
   }
@@ -24,11 +26,9 @@ class SiteMap {
   //Return nested selector by id
   checkChildren(arr, id, Action) {
     let isArray = Array.isArray(arr);
-    console.log(isArray, arr)
     if (isArray) {
       arr.map(item => {
         if (item.id === id) {
-          console.log("Match ARRAY!");
            return Action(item);
           } else {
             if (item.selectors.length) { this.checkChildren(item.selectors, id, Action)};
@@ -36,7 +36,6 @@ class SiteMap {
         });
       } else {
         if (arr.id === id) {
-          console.log("Match OBJECT!");
             return Action(arr);
         } else {
           if (arr.selectors.length) { this.checkChildren(arr.selectors, id, Action) };
@@ -44,10 +43,9 @@ class SiteMap {
     }
   }
     
-  //Add a selector to the current SiteMap. IF: the selector is added at the end;
-  //or the array only has 1 element; or parameter is omitted, THEN use push(); 
-  //ELSE insert selector AFTER the specified index.
-  addSelector(id, index) {
+  //Add a selector to the current SiteMap. 
+  //HOW IT WORKS: You ADD A SIBLING selector by referencing the id of the PARENT (i.e. a sitemap or a parent selector id). You ADD A CHILD by referencing the id of the SELECTOR ITSELF.
+  addSelector(id, index=0) {
     let state = this;
 
     function SelectorAdd(result) {
@@ -63,7 +61,6 @@ class SiteMap {
         }
       }
       this.checkChildren(state, id, SelectorAdd);
-      console.log("STATE", state.selectors[0]);
       this.selectors = state.selectors;
     }
   
@@ -71,6 +68,17 @@ class SiteMap {
   deleteSelector(id) {
     let reducedSelectors = this.selectors.filter(item => item.id !== id)
     this.selectors = reducedSelectors;
+  }
+
+  deleteSelectorsAll(id) {
+    let selectors = this.selectors;
+
+    function Delete (result) {
+      return result.selectors = [];
+    };
+
+    this.checkChildren(selectors, id, Delete);
+    this.selectors = selectors;
   }
 
   updateSelectorValue(id, input) {
@@ -88,8 +96,9 @@ class SiteMap {
     this.SiteMap = updatedSiteMap;
   }
 
-  //Add a child selector at a specified index
-
+  //Add a child selector at a specified index. Disable, becuas ethe addSelector
+  //function already achieves that.
+/*
   addChildSelector(id) {
     let selectors = this.selectors;
     
@@ -100,17 +109,8 @@ class SiteMap {
     this.checkChildren(selectors, id, AddChild);
     this.selectors = selectors;
   }
-
-  deleteChildSelectors(id) {
-    let selectors = this.selectors;
-
-    function Delete (result) {
-      return result.selectors = [];
-    };
-
-    this.checkChildren(selectors, id, Delete);
-    this.selectors = selectors;
-  }
+*/
+  
 }
 
 export default SiteMap;

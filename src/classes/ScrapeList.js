@@ -31,14 +31,22 @@ class SiteMap {
     this.url= "";
     this.componentClass="sitemap";
     this.name = name;
-    this.parentOf = [nanoid()]
-    this.selectors= [this.addFirstSelector(this.parentOf[0], this.id)];
+    this.parentOf = [];
+    this.selectors= [this.initialSelAdd(nanoid(), this.id)];
     }
     
-    addFirstSelector (childID, parentID) {
+    initialSelAdd (childID, parentID) {
       let selector = new Selector(childID);
       selector.childOf = parentID;
-      return selector;
+      this.parentOf.push(childID);
+      return selector
+    }
+
+    firstLvlSelAdd (childID, parentID) {
+      let selector = new Selector(childID);
+      selector.childOf = parentID;
+      this.parentOf.push(childID);
+      return this.selectors.push(selector);
     }
 
   
@@ -59,7 +67,7 @@ class SiteMap {
         state.selectors = newSelectors;
       }
       
-    //are added selectors children of siteMap or children of selectors? Act accordingly.
+    //Are selectors children of the siteMap or children of selectors? Update parent and chld relationships accordingly.
     let selectors = this.selectors;
     let childIndex, parentIndex;
     if (this.id === parentID) {
@@ -69,17 +77,40 @@ class SiteMap {
     } else {
         childIndex = selectors.findIndex(item => item.id === childID);
         parentIndex = selectors.findIndex(item => item.id === parentID);
-        console.log("Parent", selectors[parentIndex]);
         selectors[childIndex].addChildStatus(parentID);
         selectors[parentIndex].addParentStatus(childID);
     }
   }
 
-  
-
   deleteSelector(id) {
-    let reducedSelectors = this.selectors.filter(item => item.id !== id)
-    this.selectors = reducedSelectors;
+    function recursiveDelete(id, selectors) {
+      let children = [];
+      let target = selectors.filter(x => x.id === id)[0];
+      if (target.parentOf.length) {
+        for (let item of target.parentOf) {
+          children.push(selectors.filter(y => y.id === item))
+          children = children.flat();
+        }  
+      };
+      firstLvlSel = firstLvlSel.filter(x => x !== id);
+      console.log(`Deleting selector with id: "${id}...`);
+      baseSelectors = baseSelectors.filter(x => x.id !== id);
+      for (let element of baseSelectors) {
+          if (element.parentOf.includes(id)) { 
+          element.parentOf = element.parentOf.filter(item => item !== id);
+        }
+      }
+      if (children.length) {
+        children.map(child => recursiveDelete(child.id, baseSelectors))
+      }
+    }
+
+    let baseSelectors = this.selectors;
+    //Declare firstLvlSel for cleaning up the parentOf in SiteMap.
+    let firstLvlSel = this.parentOf;
+    recursiveDelete(id, baseSelectors);
+    this.selectors = baseSelectors;
+    this.parentOf = firstLvlSel;
   }
 
   deleteSelectorsAll(id) {

@@ -1,29 +1,18 @@
 import { nanoid } from "nanoid";
 
-export class Selector {
-  constructor(id=nanoid()) {
+class Selector {
+  constructor(id=nanoid(), parentID) {
     this.id = id;
     this.value= "";
     this.multiple= "";
     this.componentClass = "selector"
     this.type = "";
-    this.childOf = [];
+    this.childOf = [parentID];
     this.parentOf = [];
     this.scrapeResult=[];
   }
-  addParentStatus(childID) {
-    this.parentOf.push(childID);
-  }
-  removeParentStatus(parentID) {
-    this.parentOf = this.parentOf.filter(item => item !== parentID);
-  }
-  addChildStatus(parentID) {
-    this.childOf.push(parentID);
-  }
-  removeChildStatus(childID) {
-    this.childOf = this.childOf.filter(item => item !== childID);
-  }
 }
+
 
 class SiteMap {
   constructor(id= nanoid(), name="") {  
@@ -32,13 +21,13 @@ class SiteMap {
     this.componentClass="sitemap";
     this.name = name;
     this.parentOf = [];
-    this.selectors= [this.initialSelAdd(nanoid(), this.id)];
     }
     
-    initialSelAdd (childID, parentID) {
-      let selector = new Selector(childID);
+    firstSelAdd (childID, parentID) {
+      let selector = new Selector(childID, 0);
       selector.childOf = parentID;
       this.parentOf.push(childID);
+      selector.subIndex = 0;
       return selector
     }
 
@@ -52,11 +41,11 @@ class SiteMap {
   
   //Add a selector to the current SiteMap. 
   //HOW IT WORKS: You ADD A SIBLING selector by referencing the id of the PARENT (i.e. a sitemap or a parent selector id). You ADD A CHILD by referencing the id of the SELECTOR ITSELF.
-  addSelector(parentID, index=0) {
+  addSelector(parentID, index) {
     let state = this;
     let childID = nanoid();
 
-    if (index >= state.selectors.length - 1 || state.selectors.length === 0) {
+    if (index >= state.selectors.length - 1 || state.selectors.length === 0 || index === undefined) {
           state.selectors.push(new Selector(childID));
       } else {
         let newSelectors = [
@@ -139,43 +128,70 @@ class SiteMap {
     this.SiteMap = updatedSiteMap;
   }
 
-  //Return nested selector by id. Commented out because we will be parsing
-  //the nested selector via the childOf property instead of actual nesting of arrays.
-  /*checkChildren(arr, id, Action) {
-    let isArray = Array.isArray(arr);
-    if (isArray) {
-      arr.map(item => {
-        if (item.id === id) {
-           return Action(item);
-          } else {
-            if (item.selectors.length) { this.checkChildren(item.selectors, id, Action)};
-          }
-        });
-      } else {
-        if (arr.id === id) {
-            return Action(arr);
-        } else {
-          if (arr.selectors.length) { this.checkChildren(arr.selectors, id, Action) };
+}
+
+function DeleteSelector(state, id) {
+  //Delete selector and all of its childre. Also, remove its entry 
+  //from the parent.
+  //Remove reference in parent
+  let parentItem = state.filter(item => item.parentOf.includes(id))[0];
+  let newParentOf = parentItem.parentOf.filter(item => item !== id);
+  parentItem.parentOf = newParentOf;
+
+  //Remove selector.
+  state = state.filter(item => item.id !== id);
+  //Update parent in state
+  state = state.map(item => item.id === parentItem.id ? item = parentItem : item);
+  
+  //Remove children.
+  for (let element of state) {
+    if (element.hasOwnProperty("childOf")) {
+      if (element.childOf.includes(id)) {
+        state = state.filter(item => item.id !== element.id);
       }
     }
   }
-  */
-
-  //Add a child selector at a specified index. Disable, becuas ethe addSelector
-  //function already achieves that.
-/*
-  addChildSelector(id) {
-    let selectors = this.selectors;
-    
-    function AddChild (result) { 
-      return result.selectors.push(new Selector());
-    };
-
-    this.checkChildren(selectors, id, AddChild);
-    this.selectors = selectors;
-  }
-*/
+  
+  //Lastly, set state to equal the updated state.
+  return state;
   
 }
 
-export default SiteMap;
+function AddSelector(state, parentID, childID = nanoid(), index) {
+  if (state.find(item => item.id === childID)) {
+    return console.log("Error: a child with this id already exists!");
+  }
+  let parent = state.filter(x => x.id === parentID)[0];
+  if (!parent) {
+    return console.log("Error: Parent does not exist!");
+  }
+  
+  let newSelector = new Selector(childID, parentID, index) 
+  //if subIndex was undefined, assume that selector will be pushed to the
+  //childOf list of the parent element.
+  if (index === undefined) { 
+    index = parent.parentOf.length ? (parent.parentOf.length - 1) : 0;
+  }
+
+  //Set position of child in parentOf.
+  if (index === parent.parentOf.length  || parent.parentOf.length === 0) {
+    parent.parentOf.push(childID);
+} else {
+  let newOrdering = [
+    ...parent.parentOf.slice(0, index + 1), 
+    childID, 
+    ...parent.parentOf.slice(index + 1)];
+  console.log("New ordering", newOrdering);
+  parent.parentOf = newOrdering;
+}
+  //Push new selector to the state.
+  state.push(newSelector);
+  //If new selector is added, also update the parent.
+  state.map(item => { 
+    if(item.id === parentID) { item = parent};
+  })  
+}
+
+ 
+
+export { SiteMap, Selector, AddSelector, DeleteSelector };

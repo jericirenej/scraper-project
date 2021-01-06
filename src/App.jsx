@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { initialSiteMap } from "./initialSiteMap.js"
 import Selector from './selectors';
 import UrlInput from './urlInput';
-import SiteMap from './classes/ScrapeList.js';
+import { SiteMap, AddSelector, DeleteSelector, ClearSiteMap } from "./classes/ScrapeList.js";
 import { BiListPlus } from "react-icons/bi";
 import "./style.css";
 
@@ -9,7 +10,7 @@ import "./style.css";
 class App extends Component {
   state = {
       siteMaps: [
-        new SiteMap()
+        initialSiteMap
       ]
   }
 

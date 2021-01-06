@@ -1,15 +1,15 @@
 import React from 'react';
-import { BsArrowReturnRight, BsPlusCircle, BsXSquare } from "react-icons/bs";
+import controlButtons from './selectorButtons';
 
 const Selector = props =>  {
-const {onDelete, onAdd, onAddChild, onInputChange, index, inputValue, siblings, visible} = props;
+const {selectorID, onDelete, onAdd, onAddChild, onInputChange, index, inputValue, siblings, visible} = props;
   
   return (
     <div className={`selector-list wrapper ${ visible }`}>
       <div className="selector-list label">
-        <label>Selector {index +1 }: </label>
+        <label htmlFor={selectorID} >Selector {index +1 }: </label>
       </div>
-      <div className="selector-list input">
+      <div className="selector-list input" id={selectorID}>
         <input 
           type="text"
           value={inputValue}
@@ -18,21 +18,10 @@ const {onDelete, onAdd, onAddChild, onInputChange, index, inputValue, siblings, 
           id={index + 1}>
           </input>
       </div>
-      <div className="selector-list controls">
-        <BsArrowReturnRight
-          className="addChildButton button" 
-          onClick={onAddChild}/>
-        <BsPlusCircle
-          className="addSelectorButton button" 
-          title="Add a new selector for this list."
-          onClick={onAdd} />
-        {/*Add Delete button only if the number of line items is greater than one.*/}
-        {(siblings > 1) ? (<BsXSquare
-          className="deleteSelectorButton button" 
-          title="Delete the selector"
-          onClick = {onDelete}/>)
-          :null}
-      </div>
+      <controlButtons 
+        AddChild={onAddChild} AddSelector={onAdd}
+        Delete={onDelete} siblings={siblings}
+      />
     </div>
     )
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import { BiTrash } from "react-icons/bi";
 
 const UrlInput = props => {
-  const { urlValue, nameValue, onInputChange, onSiteDelete, urlProp, nameProp, siteMaps } = props
+  const { urlValue, nameValue, onInputChange, onSiteDelete, urlProp, nameProp, siteMaps, siteMapID } = props
   return (
     <div className="list wrapper">
       <div className="list-name label">

@@ -1,7 +1,7 @@
 import React from "react";
 import { BsArrowReturnRight, BsPlusCircle, BsXSquare } from "react-icons/bs";
 
-const controlButtons = (props) => {
+const SelectorControls = props => {
   const {AddChild, AddSelector, Delete, siblings} = props;
   return (  
     <div className="selector-list controls">
@@ -22,4 +22,4 @@ const controlButtons = (props) => {
   );
 }
  
-export default controlButtons;
+export default SelectorControls;

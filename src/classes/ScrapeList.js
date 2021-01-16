@@ -29,7 +29,7 @@ class Selector {
   }
   updateSelector(input, property) {
     let updatedSelector = this;
-    this[property] = input;
+    updatedSelector[property] = input;
     this.Selector = updatedSelector;
   }
 }
@@ -62,6 +62,7 @@ function AddSelector(state, parentID, index,childID = nanoid()) {
       ...parent.parentOf.slice(index + 1),
     ];
     parent.parentOf = newOrdering;
+    console.log("CHILDREN", parent.parentOf);
   }
 
   //Determine the siteMap id of which the selector is a member by tracing the parents
@@ -80,7 +81,7 @@ function AddSelector(state, parentID, index,childID = nanoid()) {
   //If new selector is added, also update the parent.
   state.map((item) => {
     if (item.id === parentID) {
-      item = parent;
+       return item = parent;
     }
   });
 }

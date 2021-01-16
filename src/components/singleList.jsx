@@ -3,19 +3,18 @@ import SiteMapURL from "./urlInput.jsx";
 import Selector from "./selectors.jsx";
 
 const SingleSrapeList = (props) => {
-  const siteMaps = props.SiteMap.filter((item) => item.componentClass === "sitemap");
-  const selectors = props.SiteMap.filter(
-    (item) => item.componentClass === "selector"
-  );
-
   const {
     onSiteInputChange,
+    onSiteDelete,
     onSelectorChange,
     selectorValue,
     onAddSelector,
     onAddChild,
     onDeleteSelector,
+    stateArray,
   } = props;
+  const siteMaps = stateArray.filter((item) => item.componentClass === "sitemap");
+  const selectors = stateArray.filter((item) => item.componentClass === "selector");
 
   function RecursiveRender(selectors, parent) {
     const childIDs = parent.parentOf;
@@ -23,51 +22,57 @@ const SingleSrapeList = (props) => {
       .map((item) => selectors.filter((element) => element.id === item))
       .flat();
     if (children) {
+      console.log("CHILDREN", children)
       return (
         <ul key={parent.id} id={parent.id}>
-          <SiteMapURL
-            urlValue={parent.value}
-            siteName={parent.name}
-            urlProp="url"
-            nameProp="name"
-            onSiteInputChange={(input, property) =>
-              onSiteInputChange(parent.id, input.target.value, property)
-            }
-          />
-          {children.map((item) => {
+          {parent.componentClass === "sitemap" ? (
+            <SiteMapURL
+              urlValue={parent.value}
+              siteName={parent.name}
+              urlProp="url"
+              nameProp="name"
+              onSiteInputChange={(input, property) =>
+                onSiteInputChange(parent.id, input.target.value, property)
+              }
+              onSiteDelete={() => onSiteDelete(parent.id)}
+            />
+          ) : null}
+      
+          {children.map((selector) => {
             return (
               <Fragment>
                 <Selector
-                  key={item.id}
-                  selectorID={item.id}
-                  selectorIndex={parent.parentOf.findIndex(item)}
+                  key={selector.id}
+                  selectorID={selector.id}
+                  index={parent.parentOf.findIndex((element) => element === selector.id)}
                   siblings={parent.parentOf.length}
-                  inputValue={() => selectorValue(item.id)}
+                  selectorValue={selectorValue(selector.id)}
                   onSelectorChange={(input) =>
-                    onSelectorChange(input.target.value, item.id)
+                    onSelectorChange(selector.id, input.target.value, "value")
                   }
                   onAddSelector={() =>
                     onAddSelector(
                       parent.id,
-                      parent.parentOf.findIndex((element) => element.id === item.id)
+                      parent.parentOf.findIndex((element) => element === selector.id)
                     )
                   }
-                  onAddChild={() => onAddChild(item.id)}
-                  onDeleteSelector={() => onDeleteSelector(item.id)}
+                  onAddChild={() => onAddChild(selector.id)}
+                  onDeleteSelector={() => onDeleteSelector(selector.id)}
                 />
-                {item.parentOf.length ? (
-                  <ul key={`${item.id}-children`}>
-                    {this.RecursiveRender(selectors, item)}
+                {selector.parentOf.length ? (
+                  <ul key={`${selector.id}-children`}>
+                    {RecursiveRender(selectors, selector)}
                   </ul>
                 ) : null}
               </Fragment>
             );
           })}
-          )
         </ul>
       );
     }
   }
+
+  //const result = siteMaps.map(list => RecursiveRender(selectors, list))
 
   return (
     <Fragment>{siteMaps.map((list) => RecursiveRender(selectors, list))}</Fragment>

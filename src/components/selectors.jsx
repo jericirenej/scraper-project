@@ -9,7 +9,7 @@ const Selector = (props) => {
     onAddChild,
     onSelectorChange,
     index,
-    selectorInputValue,
+    selectorValue,
     siblings,
   } = props;
 
@@ -22,7 +22,7 @@ const Selector = (props) => {
       <div className="selector-list input" id={selectorID}>
         <input
           type="text"
-          value={selectorInputValue}
+          value={selectorValue}
           placeholder="Enter selector"
           onChange={(input) => onSelectorChange(input)}
           id={index + 1}

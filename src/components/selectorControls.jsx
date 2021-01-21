@@ -1,8 +1,9 @@
 import React from "react";
 import { BsArrowReturnRight, BsPlusCircle, BsXSquare } from "react-icons/bs";
 
+
 const SelectorControls = props => {
-  const {AddChild, AddSelector, Delete, siblings} = props;
+  const {AddChild, AddSelector, Delete, siblings, parentType} = props;
   return (  
     <div className="selector-list controls">
         <BsArrowReturnRight
@@ -13,11 +14,12 @@ const SelectorControls = props => {
           title="Add a new selector for this list."
           onClick={AddSelector} />
         {/*Add Delete button only if the number of line items is greater than one.*/}
-        {(siblings > 1) ? (<BsXSquare
+        {(siblings > 1 || parentType!== "sitemap") ? (<BsXSquare
           className="deleteSelectorButton button" 
           title="Delete the selector"
           onClick = {Delete}/>)
           :null}
+    
       </div>
   );
 }

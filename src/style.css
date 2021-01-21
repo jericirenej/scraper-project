@@ -4,12 +4,6 @@ html {
   color: rgb(240,240,240);
 }
 
-section {
-  padding: 20px 30px 0 20px;
-  margin-bottom: 20px;
-  border: 3px solid rgb(236,236,236);
-  border-radius: 10px;
-}
 
 .list-container {
   width: 780px;
@@ -17,6 +11,13 @@ section {
   margin-right:auto;
   margin-top: 20px;
   animation: fadeIn 0.3s linear;
+}
+
+.singleList {
+  padding: 20px 30px 10px 20px;
+  margin-bottom: 20px;
+  border: 3px solid rgb(236,236,236);
+  border-radius: 10px;
 }
 
 .selector-list.wrapper.hidden {
@@ -72,7 +73,7 @@ input {
   padding: 5px;
   border: 1.5px solid rgb(242, 242, 242);
   border-radius: 5px;
-  animation: fadeIn 0.3s linear;
+  /*animation: fadeIn 0.3s linear;*/
 }
 
 input:focus, input:hover {
@@ -83,6 +84,7 @@ input:focus, input:hover {
 
 .list.wrapper {
   padding-bottom: 15px;
+  margin-bottom: 10px;
   border-bottom: 1.5px dashed rgba(240,240,240,0.5);
   animation: fadeIn 0.3s linear;
 }
@@ -96,9 +98,10 @@ input:focus, input:hover {
   grid-column: 3 / 7
 }
 .selector-list.controls {
-  grid-column: 7 / 10;
+  grid-column: 7 / 12;
   grid-row: 1 / 2;
 }
+
 .selector-list.input {
   display: block;
   width: 90%;
@@ -108,16 +111,11 @@ input:focus, input:hover {
   padding-top: 5px;
 }
 
-ul:nth-child(2) {
-  padding: 0;
-  margin-left:0;
-  margin-right:0;
 
-}
 ul {
   list-style:none;
   padding-top:0;
-  
+  padding-left: 15px;
 }
 
 li {

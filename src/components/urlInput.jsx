@@ -1,7 +1,7 @@
 import React from "react";
 import { BiTrash } from "react-icons/bi";
 
-const SiteMapURL = (props) => {
+const SiteMapURL = props => {
   const {
     urlValue,
     siteName,
@@ -21,7 +21,7 @@ const SiteMapURL = (props) => {
           type="text"
           placeholder="Enter a name"
           value={siteName}
-          onChange={(input) => onSiteInputChange(input, nameProp)}
+          onChange={input => onSiteInputChange(input, nameProp)}
         />
       </div>
       <div className="list-URL label">
@@ -32,12 +32,12 @@ const SiteMapURL = (props) => {
           type="text"
           placeholder="Enter URL address"
           value={urlValue}
-          onChange={(input) => onSiteInputChange(input, urlProp)}
+          onChange={input => onSiteInputChange(input, urlProp)}
         />
       </div>
       <div className="list-delete">
         {siteNum > 1 ? (
-          <BiTrash className="deleteList button" onClick={() => onSiteDelete} />
+          <BiTrash className="deleteList button" onClick={onSiteDelete} />
         ) : null}
       </div>
     </div>

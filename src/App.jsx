@@ -14,10 +14,10 @@ class App extends Component {
     siteMaps: initialArray,
   };
 
-  getValue = id => {
+  getProperty = (id, property) => {
     let query = this.state.siteMaps;
     let index = query.findIndex(item => item.id === id);
-    let value = query[index].value;
+    let value = query[index][property];
     return value;
   };
 
@@ -78,7 +78,8 @@ class App extends Component {
           onSelectorChange={(id, input, property) =>
             this.HandleSiteUpdate(id, input, property)
           }
-          selectorValue={id => this.getValue(id)}
+          selectorProperty={(id, property) => this.getProperty(id, property)}
+          toggleMultipleCheck={(input)=> this.handleMultipleCheckToggle(input)}
           onAddSelector={(id, index) => this.addSelector(id, index)}
           onAddChild={id => this.addSelector(id)}
           onDeleteSelector={id => this.DeleteItem(id)}

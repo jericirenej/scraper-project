@@ -7,7 +7,8 @@ const SingleSrapeList = props => {
     onSiteInputChange,
     onSiteDelete,
     onSelectorChange,
-    selectorValue,
+    selectorProperty,
+    checkedStatus,
     onAddSelector,
     onAddChild,
     onDeleteSelector,
@@ -17,7 +18,7 @@ const SingleSrapeList = props => {
   const siteMaps = stateArray.filter(item => item.componentClass === "sitemap");
   const selectors = stateArray.filter(item => item.componentClass === "selector");
 
-  function RecursiveRender(selectors, parent) {
+  function RecursiveRender(selectors, parent, siteMaps) {
     const childIDs = parent.parentOf;
     const children = childIDs
       .map(item => selectors.filter(element => element.id === item))
@@ -50,14 +51,23 @@ const SingleSrapeList = props => {
                   key={selector.id}
                   selectorID={selector.id}
                   index={parent.parentOf.findIndex(element => element === selector.id)}
+                  namePrePend={
+                    selector.childOf[0] === selector.memberOfSiteMap
+                      ? "Selector"
+                      : "Subsel."
+                  }
                   siblings={parent.parentOf.length}
                   children={selector.parentOf.length}
                   parentType={parent.componentClass}
                   position={parent.parentOf.findIndex(item => item === selector.id)}
-                  selectorValue={selectorValue(selector.id)}
+                  selectorValue={selectorProperty(selector.id, "value")}
                   onSelectorChange={input =>
                     onSelectorChange(selector.id, input.target.value, "value")
                   }
+                  toggleMultiple={input =>
+                    onSelectorChange(selector.id, input.target.checked, "multiple")
+                  }
+                  checkedStatus={selectorProperty(selector.id, "multiple")}
                   onAddSelector={() =>
                     onAddSelector(
                       parent.id,
@@ -81,7 +91,11 @@ const SingleSrapeList = props => {
     }
   }
 
-  return <Fragment>{siteMaps.map(list => RecursiveRender(selectors, list))}</Fragment>;
+  return (
+    <Fragment>
+      {siteMaps.map(singleList => RecursiveRender(selectors, singleList, siteMaps))}
+    </Fragment>
+  );
 };
 
 export default SingleSrapeList;

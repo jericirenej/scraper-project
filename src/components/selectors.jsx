@@ -1,6 +1,8 @@
 import React from "react";
 import SelectorControls from "./selectorControls.jsx";
+import TypeDropDown from "./dropDownMenu.jsx";
 import { BiEraser } from "react-icons/bi";
+import MultipleCheck from "./multipleCheckbox.jsx";
 
 const Selector = props => {
   const {
@@ -18,7 +20,8 @@ const Selector = props => {
     parentType,
     position,
     toggleMultiple,
-    checkedStatus
+    checkedStatus,
+    onTypeChange,
   } = props;
   return (
     <li
@@ -38,15 +41,8 @@ const Selector = props => {
           onChange={input => onSelectorChange(input)}
           id={index + 1}></input>
       </div>
-      <div className="selector-list multiple checkbox">
-        <label htmlFor={`checkbox-${selectorID}`}>Multiple?</label>
-        <input
-          type="checkbox"
-          onChange={input => toggleMultiple(input)}
-          id={`checkbox-${selectorID}`}
-          checked={checkedStatus}
-        ></input>
-      </div>
+      <TypeDropDown selectorID={selectorID} onTypeChange={input => onTypeChange(input)}/>
+      <MultipleCheck selectorID = {selectorID} toggleMultiple={input => toggleMultiple(input)}checked={checkedStatus}/>
       <SelectorControls
         AddChild={onAddChild}
         AddSelector={onAddSelector}

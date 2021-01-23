@@ -8,7 +8,6 @@ const SingleSrapeList = props => {
     onSiteDelete,
     onSelectorChange,
     selectorProperty,
-    checkedStatus,
     onAddSelector,
     onAddChild,
     onDeleteSelector,
@@ -68,6 +67,7 @@ const SingleSrapeList = props => {
                     onSelectorChange(selector.id, input.target.checked, "multiple")
                   }
                   checkedStatus={selectorProperty(selector.id, "multiple")}
+                  onTypeChange={input => onSelectorChange(selector.id, input.target.value, "type")}
                   onAddSelector={() =>
                     onAddSelector(
                       parent.id,

@@ -1,6 +1,15 @@
+
 html {
-  background-color: rgb(117, 150, 187);
+  height: 100%;
   box-sizing: border-box;
+  background-color: rgb(117, 150, 187);
+  background: linear-gradient(0deg, rgb(85, 145, 177) 0%, rgba(95,130,162,1) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  
+}
+
+body {
   color: rgb(240, 240, 240);
 }
 

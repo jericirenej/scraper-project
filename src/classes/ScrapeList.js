@@ -10,9 +10,7 @@ class SiteMap {
   }
 
   updateSitemap(input, property) {
-    let updatedSiteMap = this;
-    updatedSiteMap[property] = input;
-    this.SiteMap = updatedSiteMap;
+    this[property] = input;
   }
 }
 
@@ -37,7 +35,7 @@ class Selector {
 //------------------------
 //------------------------
 
-function AddSelector(state, parentID, index, childID = nanoid()) {
+function addSelector(state, parentID, index, childID = nanoid()) {
   if (state.find(item => item.id === childID)) {
     return console.log("Error: a child with this id already exists!");
   }
@@ -47,7 +45,7 @@ function AddSelector(state, parentID, index, childID = nanoid()) {
   }
 
   let newSelector = new Selector(parentID, childID);
-  //if subIndex was undefined, assume that selector will be pushed to the
+  //if element index was undefined, assume that selector should be pushed to the
   //childOf list of the parent element.
   if (index === undefined) {
     index = parent.parentOf.length ? parent.parentOf.length - 1 : 0;
@@ -86,7 +84,7 @@ function AddSelector(state, parentID, index, childID = nanoid()) {
 }
 
 //Delete a selector, remove reference in parent, and remove  its descend
-function DeleteItem(state, id) {
+function deleteItem(state, id) {
   let newState = [];
   let count = 1;
   //------------------------
@@ -121,12 +119,12 @@ function DeleteItem(state, id) {
   return (state = RecursiveDelete(state, id));
 }
 
-function ClearSiteMap(arr, siteMapID) {
+function clearSiteMap(arr, siteMapID) {
   //Filter out all the selectors, whose memberOfSiteMap property equals siteMapID.
-  //Additionally, remove child entries in the siteMap node. This  function needs to be // invoked as an assignment operation (arr = ClearSiteMap(array, siteMapID)) .
+  //Additionally, remove child entries in the siteMap node. This  function needs to be invoked as an assignment operation.
   let newArray = arr.filter(item => item.memberOfSiteMap !== siteMapID);
   newArray[newArray.findIndex(item => item.id === siteMapID)].parentOf = [];
   return newArray;
 }
 
-export { SiteMap, Selector, AddSelector, DeleteItem, ClearSiteMap };
+export { SiteMap, Selector, addSelector, deleteItem, clearSiteMap };

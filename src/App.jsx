@@ -1,13 +1,14 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { nanoid } from "nanoid";
 import SingleSrapeList from "./components/singleList";
-import { SiteMap, AddSelector, DeleteItem } from "./classes/ScrapeList.js";
+import { SiteMap, addSelector, deleteItem } from "./classes/ScrapeList.js";
 import { BiListPlus } from "react-icons/bi";
 import "./style.css";
+import Header from "./components/header";
 
 let initialArray = [];
 initialArray.push(new SiteMap("InitialMap", "First Map"));
-AddSelector(initialArray, "InitialMap", 0, "First Selector");
+addSelector(initialArray, "InitialMap", 0, "First Selector");
 
 class App extends Component {
   state = {
@@ -21,76 +22,73 @@ class App extends Component {
     return value;
   };
 
-  addSelector = (targetID, index) => {
+  onAddSelector = (targetID, index) => {
     let newState = this.state.siteMaps;
-    AddSelector(newState, targetID, index);
+    addSelector(newState, targetID, index);
     this.setState({ siteMaps: newState });
   };
 
-  DeleteSelector = (position, element) => {
-    let newState = this.state.siteMaps;
-    newState[position].deleteSelector(element);
-    this.setState({ siteMaps: newState });
-  };
-
-  HandleSiteUpdate(id, input, property) {
+  handleSiteUpdate(id, input, property) {
     let newState = this.state.siteMaps;
     let index = newState.findIndex(item => item.id === id);
     newState[index][property] = input;
     this.setState({ siteMaps: newState });
   }
 
-  AddSiteMap = () => {
+  addSiteMap = () => {
     let newState = this.state.siteMaps;
     let newListID = nanoid();
     newState.push(new SiteMap(newListID));
-    AddSelector(newState, newListID);
+    addSelector(newState, newListID);
     this.setState({ siteMaps: newState });
   };
 
-  DeleteItem = id => {
+  deleteItem = id => {
     let newState = this.state.siteMaps;
-    newState = DeleteItem(newState, id);
+    newState = deleteItem(newState, id);
     this.setState({ siteMaps: newState });
   };
 
-  ClearSiteMap = parent => {
+  clearSiteMap = parent => {
     let newState = this.state.siteMaps;
     const children = parent.parentOf;
     for (let childID of children) {
-      newState = DeleteItem(newState, childID);
+      newState = deleteItem(newState, childID);
     }
 
-    AddSelector(newState, parent.id);
+    addSelector(newState, parent.id);
     this.setState({ siteMaps: newState });
   };
 
   render() {
     const siteMaps = this.state.siteMaps;
     return (
+      <Fragment>
+      <Header />
       <div className="list-container">
         <SingleSrapeList
           stateArray={siteMaps}
           onSiteInputChange={(id, input, property) =>
-            this.HandleSiteUpdate(id, input, property)
+            this.handleSiteUpdate(id, input, property)
           }
-          onSiteDelete={id => this.DeleteItem(id)}
+          onSiteDelete={id => this.deleteItem(id)}
           onSelectorChange={(id, input, property) =>
-            this.HandleSiteUpdate(id, input, property)
+            this.handleSiteUpdate(id, input, property)
           }
           selectorProperty={(id, property) => this.getProperty(id, property)}
           toggleMultipleCheck={(input)=> this.handleMultipleCheckToggle(input)}
-          onAddSelector={(id, index) => this.addSelector(id, index)}
-          onAddChild={id => this.addSelector(id)}
-          onDeleteSelector={id => this.DeleteItem(id)}
-          onClearSiteMap={parent => this.ClearSiteMap(parent)}
+          onAddSelector={(id, index) => this.onAddSelector(id, index)}
+          onAddChild={id => this.onAddSelector(id)}
+          onDeleteSelector={id => this.onDeleteItem(id)}
+          onClearSiteMap={parent => this.clearSiteMap(parent)}
         />
         <BiListPlus
           className="addNewList button"
           title="Add another scraping list"
-          onClick={() => this.AddSiteMap()}
+          onClick={() => this.addSiteMap()}
         />
       </div>
+      </Fragment>
     );
   }
 }

@@ -243,7 +243,7 @@ selector-list.wrapper:hover {
   margin: 5px auto;
   padding: 2px;
   height: 15px;
-  scale:1.5;
+  scale:1.2;
 }
 
 .selector-list.type select {

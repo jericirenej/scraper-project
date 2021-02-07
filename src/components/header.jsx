@@ -1,5 +1,3 @@
-import { getByTitle } from "@testing-library/react";
-
 const Header = () => {
   return (
     <header>

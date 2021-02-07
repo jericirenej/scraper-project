@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# CDN - Compact Desktop Scraper
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What's it About
+The aim of this project is to build a desktop scraping application based on React that would allow for relatively straightforward scraping of websites on the basis of specified sitemaps with nested selectors, all of which is displayed graphically to the user. 
 
-## Available Scripts
+The motivation for the project arose from frequent use of different scraping tools and occassional use of *Puppeteer* to fetch results from different websites. Building my own scraper seemd like a big and fun challenge to undertake as a learning developer.
 
-In the project directory, you can run:
+----
+The User Interface is *React* based, while *Puppeteer* is planned to do the actual scraping work based on the sitemap configuration provided by the user.
 
-### `npm start`
+The application is not meant to be responsive -- it is meant to be used on a desktop screen that can accomodate all the necessary information.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Current State
+*The basic user interface is operational*. This means that the user can: 
+- add or remove sitemaps
+- add hierarchically ordered selectors and recursively remove them
+- choose their type and whether or not they are multiple in nature (i.e. if all of the occurrences should be considered)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Sitemap configurations are stored in the application state, which means that they are ready to be used for the eventual scraping part of the application. However, stroage is not yet persistent. Back-end is not implemented.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## The Big Tests Ahead
+### Back-end Implementation of Scraping Operations
+Due to security measures of websites that generally disallow cross-origin network requests, it simply *isn't possible to actually implement the scraping inside the browser*. 
 
-### `npm run build`
+Put simply: In the vast majority of cases, ordinary fetch requests for content to external sites will fail.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+A possible way to solve this issue and get around the security restrictions would be to build a browser extension which would have a wider set of security permission than a normal site running inside a browser tab. However, this is not currently under consideration.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Instead, the main focus is on implementing the scraping functionality by using *Node.js* and the associated *Puppeteer* package. This, however, brings the additional demand of developing a complete application that fuses together the front-end and the the-yet-to-be-developed back-end portions.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Persistent Storage and Results Output
+Connected with the need to develop the appropriate back-end, the question of persistent storage of saved sitemap configuration and / or scraping results also comes into play. 
 
-### `npm run eject`
+The possibilities of implementing persistent storage via browser-available methods ( such  as localStorage or IndexedDB), local storage (if the app will be developed using Electron), and online storage solutions should be considered. Online storage solutions bring with them the question of proper user authentication. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Users should also be able to export the results of their queries or store them.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**In short:** 
+- **Back-end logic must be developed for scraping the sitemaps configurations provided for in the front-end.**
+- **Decision on the type of deployment must be made (Electron or cloud deployment).**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## To Do
+- THE UI SECTION: 
+  - Complete the basic functionality by adding sections for viewing already saved configurations (simulate back-end development with mock-ups), exporting the results and running the queries. 
+- BACK-END IMPLEMENTATION:
+  - Generate logic for use with the provided sitemap parameters.
+  - Middleware for connecting React and back-end
+  - Decide on deployment type. 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<br><br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Here's hoping that I make it ;)
+  
+  
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

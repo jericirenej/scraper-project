@@ -1,5 +1,3 @@
-import React, { Fragment } from "react";
-
 const TypeDropDown = ({ selectorID, onTypeChange }) => {
   return (
     <div className="selector-list type">

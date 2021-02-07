@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { nanoid } from "nanoid";
 import SingleSrapeList from "./components/singleList";
 import { SiteMap, addSelector, deleteItem } from "./classes/ScrapeList.js";
-import { BiListPlus } from "react-icons/bi";
+import { BiListPlus as AddNewList } from "react-icons/bi";
 import "./style.css";
 import Header from "./components/header";
 
@@ -43,7 +43,7 @@ class App extends Component {
     this.setState({ siteMaps: newState });
   };
 
-  deleteItem = id => {
+  onDeleteItem = id => {
     let newState = this.state.siteMaps;
     newState = deleteItem(newState, id);
     this.setState({ siteMaps: newState });
@@ -71,7 +71,7 @@ class App extends Component {
           onSiteInputChange={(id, input, property) =>
             this.handleSiteUpdate(id, input, property)
           }
-          onSiteDelete={id => this.deleteItem(id)}
+          onSiteDelete={id => this.onDeleteItem(id)}
           onSelectorChange={(id, input, property) =>
             this.handleSiteUpdate(id, input, property)
           }
@@ -82,7 +82,7 @@ class App extends Component {
           onDeleteSelector={id => this.onDeleteItem(id)}
           onClearSiteMap={parent => this.clearSiteMap(parent)}
         />
-        <BiListPlus
+        <AddNewList
           className="addNewList button"
           title="Add another scraping list"
           onClick={() => this.addSiteMap()}

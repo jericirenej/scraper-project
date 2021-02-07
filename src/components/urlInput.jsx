@@ -1,5 +1,5 @@
 import React from "react";
-import { BiTrash } from "react-icons/bi";
+import { BiTrash as DeleteList } from "react-icons/bi";
 
 const SiteMapURL = props => {
   const {
@@ -37,7 +37,11 @@ const SiteMapURL = props => {
       </div>
       <div className="list-delete">
         {siteNum > 1 ? (
-          <BiTrash className="deleteList button" onClick={onSiteDelete} />
+          <DeleteList
+            className="deleteList button"
+            title="Delete the current sitemap."
+            onClick={onSiteDelete}
+          />
         ) : null}
       </div>
     </div>

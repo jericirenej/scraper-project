@@ -1,7 +1,7 @@
 import React from "react";
 import SelectorControls from "./selectorControls.jsx";
 import TypeDropDown from "./dropDownMenu.jsx";
-import { BiEraser } from "react-icons/bi";
+import { BiEraser as EraseSelectors} from "react-icons/bi";
 import MultipleCheck from "./multipleCheckbox.jsx";
 
 const Selector = props => {
@@ -54,7 +54,7 @@ const Selector = props => {
       />
       {/* Add Clear SiteMap to first selector */}
       {(siblings > 1 || children >= 1) && parentType === "sitemap" && position === 0 ? (
-        <BiEraser
+        <EraseSelectors
           className="clearSiteMapButton button"
           title="Clear all selectors."
           onClick={onSiteClear}

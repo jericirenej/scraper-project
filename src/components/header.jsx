@@ -5,10 +5,10 @@ const Header = () => {
     <header>
       <div className="title-bar">
         <h1 id="main-title" className="title">
-          CAS -
+          CDS -
         </h1>
         <div className="main-subtitle">
-          <h2 className="title inline-subtitle">Compact Adjustable Scraper</h2>
+          <h2 className="title inline-subtitle">Compact Desktop Scraper</h2>
           <p>A work in progress</p>
         </div>
       </div>

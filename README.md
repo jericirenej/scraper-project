@@ -52,9 +52,4 @@ Users should also be able to export the results of their queries or store them.
 
 <br><br>
 
-Here's hoping that I make it ;)
-  
-  
-
-
-
+Here's hoping that I make it (and learn a lot along the way)!

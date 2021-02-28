@@ -16,6 +16,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -41,5 +43,6 @@
   "devDependencies": {
     "gh-pages": "^3.1.0",
     "serve": "^11.3.2"
-  }
+  },
+  "homepage": "https://jericirenej.github.io/scraper-project"
 }

@@ -19,7 +19,7 @@ const SelectorControls = props => {
       {siblings > 1 || parentType !== "sitemap" ? (
         <DeleteIcon
           className="deleteSelectorButton button"
-          title="Recursivelsy delete the current selector"
+          title="Recursively delete the current selector."
           onClick={Delete}
         />
       ) : null}

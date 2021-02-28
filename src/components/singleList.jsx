@@ -45,7 +45,7 @@ const SingleSrapeList = props => {
 
           {children.map(selector => {
             return (
-              <Fragment>
+              <Fragment key={`Fragment-${selector.id}`}>
                 <Selector
                   key={selector.id}
                   selectorID={selector.id}
@@ -67,7 +67,9 @@ const SingleSrapeList = props => {
                     onSelectorChange(selector.id, input.target.checked, "multiple")
                   }
                   checkedStatus={selectorProperty(selector.id, "multiple")}
-                  onTypeChange={input => onSelectorChange(selector.id, input.target.value, "type")}
+                  onTypeChange={input =>
+                    onSelectorChange(selector.id, input.target.value, "type")
+                  }
                   onAddSelector={() =>
                     onAddSelector(
                       parent.id,

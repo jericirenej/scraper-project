@@ -59,17 +59,12 @@ const SingleSrapeList = props => {
                   children={selector.parentOf.length}
                   parentType={parent.componentClass}
                   position={parent.parentOf.findIndex(item => item === selector.id)}
+                  selectorName={selectorProperty(selector.id, "name")}
                   selectorValue={selectorProperty(selector.id, "value")}
-                  onSelectorChange={input =>
-                    onSelectorChange(selector.id, input.target.value, "value")
-                  }
-                  toggleMultiple={input =>
-                    onSelectorChange(selector.id, input.target.checked, "multiple")
+                  onSelectorChange={(input, type) =>
+                    onSelectorChange(selector.id, input.target.value, type)
                   }
                   checkedStatus={selectorProperty(selector.id, "multiple")}
-                  onTypeChange={input =>
-                    onSelectorChange(selector.id, input.target.value, "type")
-                  }
                   onAddSelector={() =>
                     onAddSelector(
                       parent.id,

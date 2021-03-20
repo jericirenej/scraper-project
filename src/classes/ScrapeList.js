@@ -17,6 +17,7 @@ class SiteMap {
 class Selector {
   constructor(parentID, id = nanoid()) {
     this.id = id;
+    this.name="";
     this.value = "";
     this.multiple = "";
     this.componentClass = "selector";
@@ -26,9 +27,7 @@ class Selector {
     this.parentOf = [];
   }
   updateSelector(input, property) {
-    let updatedSelector = this;
-    updatedSelector[property] = input;
-    this.Selector = updatedSelector;
+    this[property] = input;
   }
 }
 

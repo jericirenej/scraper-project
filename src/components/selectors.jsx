@@ -14,14 +14,13 @@ const Selector = props => {
     onSelectorChange,
     index,
     selectorValue,
+    selectorName,
     namePrePend,
     siblings,
     children,
     parentType,
     position,
-    toggleMultiple,
     checkedStatus,
-    onTypeChange,
   } = props;
   return (
     <li
@@ -33,16 +32,24 @@ const Selector = props => {
           {namePrePend} {index + 1}:{" "}
         </label>
       </div>
-      <div className="selector-list input" id={selectorID}>
+      <div className="selector-list name" id={`${selectorID}-name`}>
+        <input
+          type="text"
+          value={selectorName}
+          placeholder="Name"
+          onChange={input => onSelectorChange(input, "name")}
+          id={index + 1}></input>
+      </div>
+      <div className="selector-list input" id={`${selectorID}-value`}>
         <input
           type="text"
           value={selectorValue}
           placeholder="Enter selector"
-          onChange={input => onSelectorChange(input)}
+          onChange={input => onSelectorChange(input, "value")}
           id={index + 1}></input>
       </div>
-      <TypeDropDown selectorID={selectorID} onTypeChange={input => onTypeChange(input)}/>
-      <MultipleCheck selectorID = {selectorID} toggleMultiple={input => toggleMultiple(input)}checked={checkedStatus}/>
+      <TypeDropDown selectorID={selectorID} onTypeChange={input => onSelectorChange(input, "type")}/>
+      <MultipleCheck selectorID = {selectorID} onSelectorChange={input => onSelectorChange(input, "multiple")}checked={checkedStatus}/>
       <SelectorControls
         AddChild={onAddChild}
         AddSelector={onAddSelector}

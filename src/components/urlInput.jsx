@@ -14,12 +14,12 @@ const SiteMapURL = props => {
   return (
     <div className="list wrapper">
       <div className="list-name label">
-        <label>List name: </label>
+        <label>List: </label>
       </div>
       <div className="list-name input">
         <input
           type="text"
-          placeholder="Enter a name"
+          placeholder="Sitemap name"
           value={siteName}
           onChange={input => onSiteInputChange(input, nameProp)}
         />
@@ -30,7 +30,7 @@ const SiteMapURL = props => {
       <div className="list-URL input">
         <input
           type="text"
-          placeholder="Enter URL address"
+          placeholder="URL address"
           value={urlValue}
           onChange={input => onSiteInputChange(input, urlProp)}
         />

@@ -1,7 +1,8 @@
 import React from "react";
 import SelectorControls from "./selectorControls.jsx";
 import TypeDropDown from "./dropDownMenu.jsx";
-import { BiEraser as EraseSelectors} from "react-icons/bi";
+import { BiEraser as EraseSelectors } from "react-icons/bi";
+import InputBox from "./inputBox.jsx";
 import MultipleCheck from "./multipleCheckbox.jsx";
 
 const Selector = props => {
@@ -12,10 +13,10 @@ const Selector = props => {
     onAddSelector,
     onAddChild,
     onSelectorChange,
+    parentIndex,
     index,
     selectorValue,
     selectorName,
-    namePrePend,
     siblings,
     children,
     parentType,
@@ -29,27 +30,35 @@ const Selector = props => {
       id={`lineItem-${selectorID}`}>
       <div className="selector-list label">
         <label htmlFor={selectorID}>
-          {namePrePend} {index + 1}:{" "}
+          Sel. {parentIndex ? `${parentIndex}.${index + 1}: ` : `${index + 1 }: `}
         </label>
       </div>
-      <div className="selector-list name" id={`${selectorID}-name`}>
-        <input
-          type="text"
-          value={selectorName}
-          placeholder="Name"
-          onChange={input => onSelectorChange(input, "name")}
-          id={index + 1}></input>
-      </div>
-      <div className="selector-list input" id={`${selectorID}-value`}>
-        <input
-          type="text"
-          value={selectorValue}
-          placeholder="Enter selector"
-          onChange={input => onSelectorChange(input, "value")}
-          id={index + 1}></input>
-      </div>
-      <TypeDropDown selectorID={selectorID} onTypeChange={input => onSelectorChange(input, "type")}/>
-      <MultipleCheck selectorID = {selectorID} onSelectorChange={input => onSelectorChange(input, "multiple")}checked={checkedStatus}/>
+      <InputBox
+        placeholder="Selector name"
+        selectorID = {selectorID}
+        subType="name"
+        index={index}
+        onSelectorChange={(input, type) => onSelectorChange(input, type)}
+        selectorValue={selectorName}
+      />
+      <InputBox
+      selectorID = {selectorID}
+        placeholder="Selector definition"
+        subType="value"
+        index={index}
+        onSelectorChange={input => onSelectorChange(input, "value")}
+        selectorValue={selectorValue}
+      />
+
+      <TypeDropDown
+        selectorID={selectorID}
+        onTypeChange={input => onSelectorChange(input, "type")}
+      />
+      <MultipleCheck
+        selectorID={selectorID}
+        onSelectorChange={input => onSelectorChange(input, "multiple")}
+        checked={checkedStatus}
+      />
       <SelectorControls
         AddChild={onAddChild}
         AddSelector={onAddSelector}

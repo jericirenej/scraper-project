@@ -162,7 +162,7 @@ SCRAPELIST CONTAINERS STYLING */
 /*Set the grid display for the SiteMap details (list name and URL) */
 .list.wrapper {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(24, 1fr);
   gap: 3px;
   row-gap: 17px;
   grid-auto-rows: 50px;
@@ -173,7 +173,7 @@ SCRAPELIST CONTAINERS STYLING */
   grid-row: 1 / 2;
 }
 .list-name.input {
-  grid-column: 3 / 8;
+  grid-column: 4 / 8;
   grid-row: 1 / 2;
 }
 .list-URL.label {
@@ -181,11 +181,11 @@ SCRAPELIST CONTAINERS STYLING */
   grid-row: 2 / 3;
 }
 .list-URL.input {
-  grid-column: 3 / 12;
+  grid-column: 4 / 16;
   grid-row: 2 / 3;
 }
 .list-delete {
-  grid-column: 12 / 13;
+  grid-column: 24 / 25;
   grid-row: 1 / 2;
 }
 
@@ -224,26 +224,26 @@ selector-list.wrapper:hover {
   grid-column: 4 / 7;
 }
 
-.selector-list.input {
+.selector-list.value {
   grid-column: 8 / 15;
 }
 
 .selector-list.type {
-  grid-column: 15/17;
+  grid-column: 16/17;
   padding: 0;
   outline: none;
-  margin: -10px auto;
+  margin: -14px auto;
 }
 .selector-list.multiple.checkbox {
-  grid-column: 17 / 17;
+  grid-column: 18 / 18;
   padding: 0;
   outline: none;
   border:none;
-  margin: -8px 0;
+  margin: -12px 0;
 }
 
 .selector-list.controls {
-  grid-column: 18 / 22;
+  grid-column: 19 / 23;
   grid-row: 1 / 2;
   margin-left: -3px;
 }

@@ -75,7 +75,7 @@ function addSelector(state, parentID, index, childID = nanoid()) {
   //Now, push the new selector to the state.
   state.push(newSelector);
   //If new selector is added, also update the parent.
-  state.map(item => {
+  state.forEach(item => {
     if (item.id === parentID) {
       return (item = parent);
     }

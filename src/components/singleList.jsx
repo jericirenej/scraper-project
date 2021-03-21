@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import SiteMapURL from "./urlInput.jsx";
 import Selector from "./selectors.jsx";
+import PassIndex from "./PassIndex.js";
 
 const SingleSrapeList = props => {
   const {
@@ -16,6 +17,7 @@ const SingleSrapeList = props => {
   } = props;
   const siteMaps = stateArray.filter(item => item.componentClass === "sitemap");
   const selectors = stateArray.filter(item => item.componentClass === "selector");
+
 
   function RecursiveRender(selectors, parent, siteMaps) {
     const childIDs = parent.parentOf;
@@ -49,12 +51,8 @@ const SingleSrapeList = props => {
                 <Selector
                   key={selector.id}
                   selectorID={selector.id}
+                  parentIndex= {parent.componentClass !== "sitemap" ? PassIndex(parent, selectors, siteMaps) : null}
                   index={parent.parentOf.findIndex(element => element === selector.id)}
-                  namePrePend={
-                    selector.childOf[0] === selector.memberOfSiteMap
-                      ? "Selector"
-                      : "Subsel."
-                  }
                   siblings={parent.parentOf.length}
                   children={selector.parentOf.length}
                   parentType={parent.componentClass}
@@ -77,7 +75,7 @@ const SingleSrapeList = props => {
                 />
                 {selector.parentOf.length ? (
                   <ul key={`${selector.id}-children`}>
-                    {RecursiveRender(selectors, selector)}
+                    {RecursiveRender(selectors, selector, siteMaps)}
                   </ul>
                 ) : null}
               </Fragment>

@@ -25,20 +25,19 @@ Due to security measures of websites that generally disallow cross-origin networ
 
 Put simply: In the vast majority of cases, ordinary fetch requests for content to external sites will fail.
 
-A possible way to solve this issue and get around the security restrictions would be to build a browser extension which would have a wider set of security permission than a normal site running inside a browser tab. However, this is not currently under consideration.
-
-Instead, the main focus is on implementing the scraping functionality by using *Node.js* and the associated *Puppeteer* package. This, however, brings the additional demand of developing a complete application that fuses together the front-end and the the-yet-to-be-developed back-end portions.
+To get around this, a separate instance of a headless browser needs to be launched, which means that  **Node.js** and the associated **Puppeteer** package need to be implemented. This, however, brings the additional demand of developing a complete application that fuses together theuser interface and the back-end implementation that carries out the scraping, with the **Express** framework mediating in between.
 
 ### Persistent Storage and Results Output
 Connected with the need to develop the appropriate back-end, the question of persistent storage of saved sitemap configuration and / or scraping results also comes into play. 
 
-The possibilities of implementing persistent storage via browser-available methods ( such  as localStorage or IndexedDB), local storage (if the app will be developed using Electron), and online storage solutions should be considered. Online storage solutions bring with them the question of proper user authentication. 
+The possibilities of implementing persistent storage via browser-available methods (such  as localStorage or IndexedDB), local storage (if the app will be developed using Electron), and online storage solutions should be considered. Online storage solutions bring with them the question of proper user authentication. 
 
 Users should also be able to export the results of their queries or store them.
 
 
 **In short:** 
 - **Back-end logic must be developed for scraping the sitemaps configurations provided for in the front-end.**
+- **Express configuration for medaiation between the front- and back-end protions**
 - **Decision on the type of deployment must be made (Electron or cloud deployment).**
 
 
@@ -48,8 +47,7 @@ Users should also be able to export the results of their queries or store them.
 - BACK-END IMPLEMENTATION:
   - Generate logic for use with the provided sitemap parameters.
   - Middleware for connecting React and back-end
+    - *Minimal build already succesfully trialled, will upload to separate branch*
   - Decide on deployment type. 
 
 <br><br>
-
-Here's hoping that I make it (and learn a lot along the way)!

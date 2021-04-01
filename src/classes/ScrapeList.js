@@ -17,7 +17,7 @@ class SiteMap {
 class Selector {
   constructor(parentID, id = nanoid()) {
     this.id = id;
-    this.name="";
+    this.name = "";
     this.value = "";
     this.multiple = "";
     this.componentClass = "selector";
@@ -31,21 +31,20 @@ class Selector {
   }
 }
 
-//------------------------
-//------------------------
+//METHODS
 
 function addSelector(state, parentID, index, childID = nanoid()) {
-  if (state.find(item => item.id === childID)) {
-    return console.log("Error: a child with this id already exists!");
+  if (state.find(stateSelector => stateSelector.id === childID)) {
+    return console.error("Error: a child with this id already exists!");
   }
-  let parent = state.filter(x => x.id === parentID)[0];
-  if (!parent) {
-    return console.log("Error: Parent does not exist!");
+  let parent = state.filter(stateSelector => stateSelector.id === parentID);
+  if (!parent.length) {
+    return console.error("Error: Parent does not exist!");
   }
+  parent = parent[0];
 
   let newSelector = new Selector(parentID, childID);
-  //if element index was undefined, assume that selector should be pushed to the
-  //childOf list of the parent element.
+  //if element index was undefined, thepush the selector to the childOf list of the parent.
   if (index === undefined) {
     index = parent.parentOf.length ? parent.parentOf.length - 1 : 0;
   }
@@ -61,10 +60,8 @@ function addSelector(state, parentID, index, childID = nanoid()) {
     parent.parentOf = newOrdering;
   }
 
-  //Determine the siteMap id of which the selector is a member by tracing the parents
-  //until an item with the componentClass === "sitemap" is found. This method presumers
-  //that only one parent of a child can exist, even though the array type of the cildOf
-  //property indicates the possibility of future implementation of shared parents.
+  //Determine the siteMap id of which the selector is a member by tracing the parents.
+  //Only one parent per child allowed.
   const findSiteMap = parent => {
     parent.componentClass === "sitemap"
       ? (newSelector.memberOfSiteMap = parent.id)
@@ -86,16 +83,13 @@ function addSelector(state, parentID, index, childID = nanoid()) {
 function deleteItem(state, id) {
   let newState = [];
   let count = 1;
-  //------------------------
+  
   //Recursively remove children of a deleted selector.
   const RecursiveDelete = (arr, id) => {
     const target = arr.filter(item => item.id === id);
-
     //Filter out the selector
     newState = arr.filter(item => item.id !== id);
-
-    //Find parent and remove reference on first iteration (in subsequent
-    //iterations the parent is already removed at this point).
+    //Find parent and remove reference on first iteration.
     if (count === 1) {
       let parent = arr.filter(item => item.parentOf.includes(id));
       if (parent.length) {
@@ -114,13 +108,13 @@ function deleteItem(state, id) {
     }
     return newState;
   };
-  //------------------------
-  return (state = RecursiveDelete(state, id));
+
+  return state = RecursiveDelete(state, id);
 }
 
 function clearSiteMap(arr, siteMapID) {
   //Filter out all the selectors, whose memberOfSiteMap property equals siteMapID.
-  //Additionally, remove child entries in the siteMap node. This  function needs to be invoked as an assignment operation.
+  //Also remove child entries in the siteMap node.
   let newArray = arr.filter(item => item.memberOfSiteMap !== siteMapID);
   newArray[newArray.findIndex(item => item.id === siteMapID)].parentOf = [];
   return newArray;

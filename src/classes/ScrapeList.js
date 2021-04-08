@@ -43,8 +43,11 @@ function addSelector(state, parentID, index, childID = nanoid()) {
   }
   parent = parent[0];
 
+  //If a selector has children, then it is a "link" type.
+  parent.type = "link";
+
   let newSelector = new Selector(parentID, childID);
-  //if element index was undefined, thepush the selector to the childOf list of the parent.
+  //if element index was undefined, push the selector to the childOf list of the parent.
   if (index === undefined) {
     index = parent.parentOf.length ? parent.parentOf.length - 1 : 0;
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import SelectorControls from "./selectorControls.jsx";
-import TypeDropDown from "./dropDownMenu.jsx";
+//import TypeDropDown from "./dropDownMenu.jsx";
 import { BiEraser as EraseSelectors } from "react-icons/bi";
 import InputBox from "./inputBox.jsx";
 import MultipleCheck from "./multipleCheckbox.jsx";
@@ -50,10 +50,10 @@ const Selector = props => {
         selectorValue={selectorValue}
       />
 
-      <TypeDropDown
+      {/*<TypeDropDown
         selectorID={selectorID}
         onTypeChange={input => onSelectorChange(input, "type")}
-      />
+      />*/}
       <MultipleCheck
         selectorID={selectorID}
         onSelectorChange={input => onSelectorChange(input, "multiple")}

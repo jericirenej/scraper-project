@@ -8,7 +8,7 @@ The motivation for the project arose from frequent use of different scraping too
 ----
 The User Interface is *React* based, while *Puppeteer* is planned to do the actual scraping work based on the sitemap configuration provided by the user.
 
-The application is not meant to be responsive -- it is meant to be used on a desktop screen that can accomodate all the necessary information.
+The application *is not meant to be responsive* -- it is meant to be used on a desktop screen that can accomodate all the necessary information.
 
 ## Current State
 *The basic user interface is operational*. This means that the user can: 
@@ -16,14 +16,14 @@ The application is not meant to be responsive -- it is meant to be used on a des
 - add hierarchically ordered selectors and recursively remove them
 - choose their type and whether or not they are multiple in nature (i.e. if all of the occurrences should be considered)
 
-Sitemap configurations are stored in the application state, which means that they are ready to be used for the eventual scraping part of the application. However, stroage is not yet persistent. Back-end is not implemented.
+Sitemap configurations are stored in the application state, which means that they are ready to be used for the eventual scraping part of the application. However, stroage is not yet persistent. Back-end is not yet implemented.
+
+The preview of the current state can be seen [here](https://jericirenej.github.io/scraper-project/).
 
 
 ## The Big Tests Ahead
 ### Back-end Implementation of Scraping Operations
 Due to security measures of websites that generally disallow cross-origin network requests, it simply *isn't possible to actually implement the scraping inside the browser*. 
-
-Put simply: In the vast majority of cases, ordinary fetch requests for content to external sites will fail.
 
 To get around this, a separate instance of a headless browser needs to be launched, which means that  **Node.js** and the associated **Puppeteer** package need to be implemented. This, however, brings the additional demand of developing a complete application that fuses together theuser interface and the back-end implementation that carries out the scraping, with the **Express** framework mediating in between.
 

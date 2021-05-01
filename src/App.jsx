@@ -10,6 +10,7 @@ let initialArray = [];
 initialArray.push(new SiteMap("InitialMap", "First Map"));
 addSelector(initialArray, "InitialMap", 0, "First Selector");
 
+
 class App extends Component {
   state = {
     siteMaps: initialArray,

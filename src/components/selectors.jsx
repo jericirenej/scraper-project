@@ -57,7 +57,7 @@ const Selector = props => {
       <MultipleCheck
         selectorID={selectorID}
         onSelectorChange={input => onSelectorChange(input, "multiple")}
-        checked={checkedStatus}
+        checkedStatus={checkedStatus}
       />
       <SelectorControls
         AddChild={onAddChild}

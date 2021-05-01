@@ -228,14 +228,17 @@ selector-list.wrapper:hover {
   grid-column: 8 / 15;
 }
 
+/*
 .selector-list.type {
   grid-column: 16/17;
   padding: 0;
   outline: none;
   margin: -14px auto;
 }
+*/
+
 .selector-list.multiple.checkbox {
-  grid-column: 18 / 18;
+  grid-column: 16 / 17;
   padding: 0;
   outline: none;
   border:none;
@@ -243,7 +246,7 @@ selector-list.wrapper:hover {
 }
 
 .selector-list.controls {
-  grid-column: 19 / 23;
+  grid-column: 18 / 22;
   grid-row: 1 / 2;
   margin-left: -3px;
 }

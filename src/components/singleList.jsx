@@ -33,7 +33,7 @@ const SingleSrapeList = props => {
           {parent.componentClass === "sitemap" ? (
             <SiteMapURL
               key={`url--${parent.id}`}
-              urlValue={parent.value}
+              urlValue={parent.url}
               siteName={parent.name}
               urlProp="url"
               nameProp="name"

@@ -6,9 +6,9 @@ The aim of this project is to build a desktop scraping application based on Reac
 The motivation for the project arose from frequent use of different scraping tools and occassional use of *Puppeteer* to fetch results from different websites. Building my own scraper seemd like a big and fun challenge to undertake as a learning developer.
 
 ----
-The User Interface is *React* based, while *Puppeteer* is planned to do the actual scraping work based on the sitemap configuration provided by the user.
+The User Interface is *React* based, while *Puppeteer* will perform the  actual scraping work based on the sitemap configuration provided by the user.
 
-The application *is not meant to be responsive* -- it is meant to be used on a desktop screen that can accomodate all the necessary information.
+As of now, the application *is not designed to be responsive* -- it is meant to be used on a desktop screen that can accomodate all the necessary information. Responsive design implementation will optionally be impemented once the basic functionality is ensured.
 
 ## Current State
 *The basic user interface is operational*. This means that the user can: 
@@ -16,38 +16,27 @@ The application *is not meant to be responsive* -- it is meant to be used on a d
 - add hierarchically ordered selectors and recursively remove them
 - choose their type and whether or not they are multiple in nature (i.e. if all of the occurrences should be considered)
 
-Sitemap configurations are stored in the application state, which means that they are ready to be used for the eventual scraping part of the application. However, stroage is not yet persistent. Back-end is not yet implemented.
+Sitemap configurations are stored in the application state for now.
 
-The preview of the current state can be seen [here](https://jericirenej.github.io/scraper-project/).
+Also, *the basic back-end scraping functionality has been implemented*. This means that Puppeteer is able to parse the stored sitemaps and recursively scrape the results. Puppeteer scripts haven't been uploaded yet, as the solution is not stable enough yet, and the Express middleware has not yet been implemented.
 
 
 ## The Big Tests Ahead
-### Back-end Implementation of Scraping Operations
-Due to security measures of websites that generally disallow cross-origin network requests, it simply *isn't possible to actually implement the scraping inside the browser*. 
-
-To get around this, a separate instance of a headless browser needs to be launched, which means that  **Node.js** and the associated **Puppeteer** package need to be implemented. This, however, brings the additional demand of developing a complete application that fuses together theuser interface and the back-end implementation that carries out the scraping, with the **Express** framework mediating in between.
+### Back-end Implementation of Scraping Operations 
+Compelted on a basic level. Need to extend functionality to encompass different selector types (especially click type links).
 
 ### Persistent Storage and Results Output
-Connected with the need to develop the appropriate back-end, the question of persistent storage of saved sitemap configuration and / or scraping results also comes into play. 
+Connected with the need to develop the appropriate back-end, the question of persistent storage of saved sitemap configuration and / or scraping results also comes into play. For now, the possibility of using local storage options will be considerd. After the app will reach the desired functionality, further extensions can be planned.
 
-The possibilities of implementing persistent storage via browser-available methods (such  as localStorage or IndexedDB), local storage (if the app will be developed using Electron), and online storage solutions should be considered. Online storage solutions bring with them the question of proper user authentication. 
-
-Users should also be able to export the results of their queries or store them.
+It is paramount that users can export the results of the queries. JSON exporting will be provided. Also, optionally, users should be able to see a preview of the results in a tabular format.
 
 
 **In short:** 
-- **Back-end logic must be developed for scraping the sitemaps configurations provided for in the front-end.**
-- **Express configuration for medaiation between the front- and back-end protions**
-- **Decision on the type of deployment must be made (Electron or cloud deployment).**
+- **Back-end logic must be ~~developed~~ completed**
+- **Express server should be set-up to pass the sitemaps to the back-end Puppeteer script**
+- **Optional: Electron deployment**
 
 
-## To Do
-- THE UI SECTION: 
-  - Complete the basic functionality by adding sections for viewing already saved configurations (simulate back-end development with mock-ups), exporting the results and running the queries. 
-- BACK-END IMPLEMENTATION:
-  - Generate logic for use with the provided sitemap parameters.
-  - Middleware for connecting React and back-end
-    - *Minimal build already succesfully trialled, will upload to separate branch*
-  - Decide on deployment type. 
+The preview of the current state can be seen [here](https://jericirenej.github.io/scraper-project/).
 
 <br><br>

@@ -7,7 +7,7 @@ const PassIndex = (parent, selectors, siteMaps) => {
   let ancestor = parent;
   while (ancestorClass !== "sitemap") {
     indexArray.push(ExtractIndex(ancestor, selectors, siteMaps));
-    console.log("Intermediate array indices: ", indexArray.reverse());
+    //console.log("Intermediate array indices: ", indexArray.reverse());
     const ancestorID = ancestor.childOf[0];
     siteMaps.filter(entry => entry.id === ancestorID).length === 0
       ? (ancestor = selectors.filter(entry => entry.id === ancestorID)[0])
@@ -24,7 +24,7 @@ const ExtractIndex = (parent, selectors, siteMaps) => {
     ? (targetArray = siteMaps)
     : (targetArray = selectors);
 
-  console.log("Target array: ", targetArray);
+  //console.log("Target array: ", targetArray);
   const targetElement = targetArray.filter(entry => entry.parentOf.includes(parent.id));
   return targetElement[0].parentOf.findIndex(children => children === parent.id) + 1;
 };

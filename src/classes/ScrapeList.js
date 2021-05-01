@@ -15,13 +15,13 @@ class SiteMap {
 }
 
 class Selector {
-  constructor(parentID, id = nanoid()) {
+  constructor(parentID, id = nanoid(), type = "text") {
     this.id = id;
     this.name = "";
     this.value = "";
     this.multiple = "";
     this.componentClass = "selector";
-    this.type = "";
+    this.type = type;
     this.memberOfSiteMap = "";
     this.childOf = [parentID];
     this.parentOf = [];

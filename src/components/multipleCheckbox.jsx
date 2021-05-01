@@ -6,9 +6,14 @@ const MultipleCheck = ({ selectorID, checkedStatus, onSelectorChange }) => {
       <label htmlFor={`checkbox-${selectorID}`}>Multiple?</label>
       <input
         type="checkbox"
-        onChange={input => onSelectorChange(input)}
+        onChange={input => {
+          input.target.checked
+            ? (input.target.value = true)
+            : (input.target.value = false);
+          onSelectorChange(input);
+        }}
         id={`checkbox-${selectorID}`}
-        checked={checkedStatus}></input>
+        checked = { checkedStatus === "true" }></input>
     </div>
   );
 };

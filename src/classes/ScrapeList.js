@@ -34,6 +34,7 @@ class Selector {
 //METHODS
 
 function addSelector(state, parentID, index, childID = nanoid()) {
+  const linkTypes = ["link", "click"];
   if (state.find(stateSelector => stateSelector.id === childID)) {
     return console.error("Error: a child with this id already exists!");
   }
@@ -43,8 +44,9 @@ function addSelector(state, parentID, index, childID = nanoid()) {
   }
   parent = parent[0];
 
-  //If a selector has children, then it is a "link" type.
-  parent.type = "link";
+  //If a selector has children, change it to a link type if it does not already
+  //include one of the linkTypes.
+  if (!linkTypes.includes(parent.type)) { parent.type = linkTypes[0] };
 
   let newSelector = new Selector(parentID, childID);
   //if element index was undefined, push the selector to the childOf list of the parent.

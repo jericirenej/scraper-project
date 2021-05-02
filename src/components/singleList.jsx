@@ -59,6 +59,7 @@ const SingleSrapeList = props => {
                   position={parent.parentOf.findIndex(item => item === selector.id)}
                   selectorName={selectorProperty(selector.id, "name")}
                   selectorValue={selectorProperty(selector.id, "value")}
+                  selectedType = { selectorProperty(selector.id, "type") }
                   onSelectorChange={(input, type) =>
                     onSelectorChange(selector.id, input.target.value, type)
                   }

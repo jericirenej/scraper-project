@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/scraper-project/static/css/main.cd9664cc.chunk.css",
-    "main.js": "/scraper-project/static/js/main.9e4abc51.chunk.js",
-    "main.js.map": "/scraper-project/static/js/main.9e4abc51.chunk.js.map",
+    "main.css": "/scraper-project/static/css/main.4760aaca.chunk.css",
+    "main.js": "/scraper-project/static/js/main.c8a6985a.chunk.js",
+    "main.js.map": "/scraper-project/static/js/main.c8a6985a.chunk.js.map",
     "runtime-main.js": "/scraper-project/static/js/runtime-main.65476cf1.js",
     "runtime-main.js.map": "/scraper-project/static/js/runtime-main.65476cf1.js.map",
     "static/js/2.2420e765.chunk.js": "/scraper-project/static/js/2.2420e765.chunk.js",
     "static/js/2.2420e765.chunk.js.map": "/scraper-project/static/js/2.2420e765.chunk.js.map",
     "index.html": "/scraper-project/index.html",
-    "static/css/main.cd9664cc.chunk.css.map": "/scraper-project/static/css/main.cd9664cc.chunk.css.map",
+    "static/css/main.4760aaca.chunk.css.map": "/scraper-project/static/css/main.4760aaca.chunk.css.map",
     "static/js/2.2420e765.chunk.js.LICENSE.txt": "/scraper-project/static/js/2.2420e765.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.65476cf1.js",
     "static/js/2.2420e765.chunk.js",
-    "static/css/main.cd9664cc.chunk.css",
-    "static/js/main.9e4abc51.chunk.js"
+    "static/css/main.4760aaca.chunk.css",
+    "static/js/main.c8a6985a.chunk.js"
   ]
 }

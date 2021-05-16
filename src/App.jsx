@@ -5,10 +5,13 @@ import { SiteMap, addSelector, deleteItem } from "./classes/ScrapeList.js";
 import { BiListPlus as AddNewList } from "react-icons/bi";
 import "./style.css";
 import Header from "./components/header";
+import { tempMaps } from "./backEnd/tmpClasses";
 
 let initialArray = [];
 initialArray.push(new SiteMap("InitialMap", "First Map"));
 addSelector(initialArray, "InitialMap", 0, "First Selector");
+
+//let initialArray = tempMaps;
 
 
 class App extends Component {
